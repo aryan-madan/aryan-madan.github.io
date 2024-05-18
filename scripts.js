@@ -4,17 +4,13 @@ let mouseX = 0;
 let mouseY = 0;
 let circleX = 0;
 let circleY = 0;
-let isHovering = false; // Track if the mouse is hovering over the button
-
-const speed = 0.1;
+const speed = 0.08;
 
 function updateCirclePosition() {
     circleX += (mouseX - circleX) * speed;
     circleY += (mouseY - circleY) * speed;
-    
     circle.style.left = `${circleX}px`;
     circle.style.top = `${circleY}px`;
-    
     requestAnimationFrame(updateCirclePosition);
 }
 
@@ -26,54 +22,17 @@ document.addEventListener('mousemove', (e) => {
 updateCirclePosition();
 
 const buttons = document.querySelectorAll('button');
-
 buttons.forEach(button => {
     button.addEventListener('mouseenter', () => {
-        isHovering = true;
-        shrinkAndFadeCircle();
+        circle.classList.add('hovering');
     });
+
     button.addEventListener('mouseleave', () => {
-        isHovering = false;
-        expandAndAppearCircle();
+        circle.classList.remove('hovering');
     });
 });
 
-function shrinkAndFadeCircle() {
-    const shrinkFadeInterval = setInterval(() => {
-        let diameter = parseFloat(circle.style.width || 50);
-        let opacity = parseFloat(circle.style.opacity || 1);
-        
-        diameter -= 1; // Decrease the size
-        opacity -= 0.05; // Decrease opacity
-        
-        circle.style.width = `${diameter}px`;
-        circle.style.height = `${diameter}px`;
-        circle.style.opacity = opacity;
-        
-        if (diameter <= 0 || opacity <= 0) {
-            clearInterval(shrinkFadeInterval);
-            circle.style.display = 'none';
-        }
-    }, 10); // Decrease the interval for faster change
-}
-
-function expandAndAppearCircle() {
-    circle.style.display = 'block';
-    circle.style.opacity = '1';
-    const expandInterval = setInterval(() => {
-        let diameter = parseFloat(circle.style.width || 0);
-        diameter += 1; // Increase the size
-        circle.style.width = `${diameter}px`;
-        circle.style.height = `${diameter}px`;
-        
-        if (diameter >= 50) {
-            clearInterval(expandInterval);
-        }
-    }, 10); // Decrease the interval for faster change
-}
-
-
-// Particles.js
+// Particles.js configuration
 particlesJS("particles-js", {
     "particles": {
         "number": {

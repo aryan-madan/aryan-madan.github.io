@@ -82,18 +82,17 @@ button:active {
     left: 0;
     width: 50px;
     height: 50px;
-    border-radius: 50%;
     pointer-events: none;
     mix-blend-mode: difference;
     transform: translate(-50%, -50%);
-    transition: width 0.5s, height 0.5s; /* Add CSS transition for width and height */
+    transition: width 0.5s, height 0.5s;
 }
 
-.circle.shrink {
-    width: 0px;
-    height: 0px;
+.circle.hovering {
+    width: 0;
+    height: 0;
+    border: none;
 }
-
 
 #particles-js {
     position: absolute;
@@ -106,14 +105,20 @@ button:active {
 
 @media only screen and (max-width: 600px) {
     h1 {
-        font-size: 10em;
+        margin-top: -2rem;
+        font-size: 8em
     }
 
-    .circle {
-        visibility: hidden;
+    button {
+        padding: 0.8em 2em;
+        font-size: 16px;
     }
 
     body {
         overflow: hidden;
+    }
+
+    .circle {
+        visibility: hidden;
     }
 }
